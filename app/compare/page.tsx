@@ -3,7 +3,14 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, Upload, FolderOpen, Home, Sparkles } from "lucide-react";
+import {
+  FileText,
+  Upload,
+  FolderOpen,
+  Home,
+  Sparkles,
+  Github,
+} from "lucide-react";
 import Link from "next/link";
 
 import type {
@@ -13,13 +20,22 @@ import type {
   FolderComparison,
 } from "@/types/diff";
 import { calculateTextDiff } from "@/utils/diff-calculator";
+import { getCommitComparison } from "@/utils/github-api";
 import { TextCompare } from "@/components/text-compare";
 import { FileCompare } from "@/components/file-compare";
 import { FolderCompare } from "@/components/folder-compare";
+import { GithubCompare } from "@/components/github-compare";
 import { ComparisonControls } from "@/components/comparison-controls";
 import { DiffStatsComponent } from "@/components/diff-stats";
 import { DiffViewer } from "@/components/diff-viewer";
 import { motion } from "framer-motion";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function ComparePage() {
   const [leftText, setLeftText] = useState("");
@@ -46,6 +62,14 @@ export default function ComparePage() {
   const [folderComparison, setFolderComparison] =
     useState<FolderComparison | null>(null);
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
+
+  // GitHub comparison state
+  const [isGithubLoading, setIsGithubLoading] = useState(false);
+  const [githubError, setGithubError] = useState<string | null>(null);
+  const [githubCommitInfo, setGithubCommitInfo] = useState<any>(null);
+  const [selectedGithubFile, setSelectedGithubFile] = useState<string | null>(
+    null
+  );
 
   const diffResultsRef = useRef<HTMLDivElement>(null);
 
@@ -214,6 +238,74 @@ export default function ComparePage() {
     setDiffStats(stats);
   };
 
+  const handleGithubCompare = async (commitUrl: string) => {
+    setIsGithubLoading(true);
+    setGithubError(null);
+
+    try {
+      const commitData = await getCommitComparison(commitUrl);
+      setGithubCommitInfo(commitData);
+
+      // Select first file by default
+      if (commitData.files && commitData.files.length > 0) {
+        const firstFile = commitData.files[0];
+        setSelectedGithubFile(firstFile.filename);
+
+        // Set texts for diff view
+        setLeftText(firstFile.leftContent);
+        setRightText(firstFile.rightContent);
+        setLeftFileName(`${firstFile.filename} (Parent)`);
+        setRightFileName(`${firstFile.filename} (Current)`);
+
+        // Calculate diff
+        const { diffLines: newDiffLines, stats } = calculateTextDiff(
+          firstFile.leftContent,
+          firstFile.rightContent,
+          ignoreWhitespace
+        );
+        setDiffLines(newDiffLines);
+        setDiffStats(stats);
+        scrollToResults();
+      }
+    } catch (error) {
+      console.error("GitHub comparison error:", error);
+      setGithubError(
+        error instanceof Error
+          ? error.message
+          : "Failed to fetch GitHub commit data"
+      );
+    } finally {
+      setIsGithubLoading(false);
+    }
+  };
+
+  const handleSelectGithubFile = (filename: string) => {
+    if (!githubCommitInfo) return;
+
+    const fileData = githubCommitInfo.files.find(
+      (f: any) => f.filename === filename
+    );
+    if (fileData) {
+      setSelectedGithubFile(filename);
+
+      // Set texts for diff view
+      setLeftText(fileData.leftContent);
+      setRightText(fileData.rightContent);
+      setLeftFileName(`${filename} (Parent)`);
+      setRightFileName(`${filename} (Current)`);
+
+      // Calculate diff
+      const { diffLines: newDiffLines, stats } = calculateTextDiff(
+        fileData.leftContent,
+        fileData.rightContent,
+        ignoreWhitespace
+      );
+      setDiffLines(newDiffLines);
+      setDiffStats(stats);
+      scrollToResults();
+    }
+  };
+
   const handleClearAll = () => {
     setLeftText("");
     setRightText("");
@@ -347,27 +439,34 @@ export default function ComparePage() {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <Tabs defaultValue="text" className="w-full">
-            <TabsList className="grid max-w-2xl mx-auto grid-cols-3 bg-muted/50 p-1 rounded-xl">
+            <TabsList className="grid max-w-2xl mx-auto grid-cols-4 bg-muted/50 p-1 rounded-xl">
               <TabsTrigger
                 value="text"
                 className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow"
               >
                 <FileText className="w-4 h-4" />
-                Text Compare
+                Text
               </TabsTrigger>
               <TabsTrigger
                 value="file"
                 className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow"
               >
                 <Upload className="w-4 h-4" />
-                File Compare
+                File
               </TabsTrigger>
               <TabsTrigger
                 value="folder"
                 className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow"
               >
                 <FolderOpen className="w-4 h-4" />
-                Folder Compare
+                Folder
+              </TabsTrigger>
+              <TabsTrigger
+                value="github"
+                className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow"
+              >
+                <Github className="w-4 h-4" />
+                GitHub
               </TabsTrigger>
             </TabsList>
 
@@ -424,6 +523,73 @@ export default function ComparePage() {
                   onFileSelect={handleFileSelect}
                   onSwapFolders={handleSwapFolders}
                 />
+              </TabsContent>
+
+              <TabsContent value="github" className="space-y-6">
+                <GithubCompare
+                  onCompare={handleGithubCompare}
+                  onClear={handleClearAll}
+                  isLoading={isGithubLoading}
+                  error={githubError}
+                />
+
+                {githubCommitInfo && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="mt-6"
+                  >
+                    <Card className="shadow-lg">
+                      <CardHeader className="bg-gradient-to-r from-blue-50 to-transparent">
+                        <CardTitle className="flex items-center gap-2">
+                          <Github className="w-5 h-5" />
+                          Commit: {githubCommitInfo.commitMessage}
+                        </CardTitle>
+                        <CardDescription>
+                          By {githubCommitInfo.authorName} on{" "}
+                          {new Date(
+                            githubCommitInfo.authorDate
+                          ).toLocaleString()}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-4">
+                          <h3 className="text-lg font-semibold">
+                            Changed Files
+                          </h3>
+                          <div className="grid gap-2">
+                            {githubCommitInfo.files.map((file: any) => (
+                              <Button
+                                key={file.filename}
+                                variant={
+                                  selectedGithubFile === file.filename
+                                    ? "default"
+                                    : "outline"
+                                }
+                                className="justify-start text-left h-auto py-2"
+                                onClick={() =>
+                                  handleSelectGithubFile(file.filename)
+                                }
+                              >
+                                <span
+                                  className={`w-2 h-2 mr-2 rounded-full ${
+                                    file.status === "added"
+                                      ? "bg-green-500"
+                                      : file.status === "removed"
+                                      ? "bg-red-500"
+                                      : "bg-blue-500"
+                                  }`}
+                                ></span>
+                                {file.filename}
+                              </Button>
+                            ))}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                )}
               </TabsContent>
             </div>
           </Tabs>

@@ -11,8 +11,8 @@ export const CtaSection = () => {
           Ready to Transform Your Workflow?
         </h2>
         <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-          Join thousands of professionals who trust DiffChecker Pro for their
-          comparison needs
+          Compare text, files, folders, and even GitHub commits. Join thousands
+          of professionals who trust DiffChecker Pro for their comparison needs.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button

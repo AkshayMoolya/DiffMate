@@ -20,8 +20,8 @@ export const Herosection = () => {
         </h1>
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
           Professional-grade text and file comparison tool with beautiful
-          visualizations, advanced features, and support for 20+ file formats.
-          Perfect for developers, writers, and teams.
+          visualizations, advanced features, GitHub integration, and support for
+          20+ file formats. Perfect for developers, writers, and teams.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <Button size="lg" className="text-lg px-8" asChild>
