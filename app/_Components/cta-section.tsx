@@ -12,7 +12,7 @@ export const CtaSection = () => {
         </h2>
         <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
           Compare text, files, folders, and even GitHub commits. Join thousands
-          of professionals who trust DiffChecker Pro for their comparison needs.
+          of professionals who trust DiffMate for their comparison needs.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button

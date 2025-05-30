@@ -42,8 +42,8 @@ export const UseCasesSection = () => {
             Perfect for Every Use Case
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            From code reviews to document editing, DiffChecker Pro adapts to
-            your workflow
+            From code reviews to document editing, DiffMate adapts to your
+            workflow
           </p>
         </div>
 

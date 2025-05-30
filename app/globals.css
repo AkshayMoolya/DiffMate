@@ -41,6 +41,14 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* New variables for enhanced visual effects */
+  --glass-background: rgba(255, 255, 255, 0.8);
+  --glass-background-dark: rgba(17, 24, 39, 0.8);
+  --shadow-color: rgba(59, 130, 246, 0.2);
+  --shadow-color-dark: rgba(59, 130, 246, 0.15);
+  --glow-color: rgba(59, 130, 246, 0.3);
+  --glow-color-dark: rgba(59, 130, 246, 0.2);
 }
 
 :root {
@@ -118,5 +126,25 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Glass effect enhancements */
+  .glass {
+    @apply backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border border-white/20 dark:border-slate-700/30 shadow-xl;
+  }
+
+  /* Gradient text enhancement */
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400;
+  }
+
+  /* Glow effects */
+  .glow {
+    @apply shadow-[0_0_15px_rgba(59,130,246,0.5)] dark:shadow-[0_0_15px_rgba(59,130,246,0.3)];
+  }
+
+  /* Transition animations */
+  .page-transition {
+    @apply transition-all duration-300 ease-in-out;
   }
 }

@@ -49,8 +49,8 @@ export function GithubCompare({
   };
 
   return (
-    <Card className="shadow-lg">
-      <CardHeader className="bg-gradient-to-r from-blue-50 via-purple-50 to-transparent">
+    <Card className="shadow-lg border dark:border-slate-800">
+      <CardHeader className="bg-gradient-to-r from-blue-50/80 via-purple-50/50 to-transparent dark:from-blue-950/30 dark:via-purple-950/20 dark:to-transparent">
         <CardTitle>GitHub Commit Comparison</CardTitle>
         <CardDescription>
           Paste a GitHub commit URL to view changes compared to its parent
@@ -67,13 +67,13 @@ export function GithubCompare({
           <div className="flex flex-col gap-2">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <Github className="w-5 h-5 text-gray-400" />
+                <Github className="w-5 h-5 text-gray-400 dark:text-gray-500" />
               </div>
               <Input
                 value={commitUrl}
                 onChange={(e) => setCommitUrl(e.target.value)}
                 placeholder="https://github.com/username/repo/commit/hash"
-                className="pl-10 pr-20 py-6 text-base focus-visible:ring-blue-500"
+                className="pl-10 pr-20 py-6 text-base focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 dark:border-slate-700"
               />
               <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                 <Button
@@ -105,7 +105,7 @@ export function GithubCompare({
           <Button
             variant="outline"
             onClick={onClear}
-            className="flex items-center gap-2 border-blue-200 hover:bg-blue-50 hover:text-blue-600"
+            className="flex items-center gap-2 border-blue-200 hover:bg-blue-50 hover:text-blue-600 dark:border-blue-900 dark:hover:bg-blue-950 dark:hover:text-blue-300"
           >
             <RotateCcw className="w-4 h-4" />
             Clear
@@ -120,8 +120,8 @@ export function GithubCompare({
             transition={{ duration: 0.4, delay: 0.2 }}
             className="mt-6"
           >
-            <Card className="shadow-sm">
-              <CardHeader className="py-3 bg-muted/50">
+            <Card className="shadow-sm border dark:border-slate-800">
+              <CardHeader className="py-3 bg-muted/50 dark:bg-muted/20">
                 <CardTitle className="text-sm font-medium flex items-center gap-2">
                   <Github className="w-4 h-4" />
                   {commitInfo && (

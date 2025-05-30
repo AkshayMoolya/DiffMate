@@ -33,8 +33,8 @@ export function FileCompare({
   rightFileName,
 }: FileCompareProps) {
   return (
-    <Card className="shadow-lg">
-      <CardHeader className="bg-gradient-to-r from-blue-50 via-purple-50 to-transparent">
+    <Card className="shadow-lg dark:border-slate-700">
+      <CardHeader className="bg-gradient-to-r from-blue-50 via-purple-50 to-transparent dark:from-blue-900/20 dark:via-purple-900/10 dark:to-transparent">
         <CardTitle>File Comparison</CardTitle>
         <CardDescription>
           Upload two files to compare their contents
@@ -49,15 +49,15 @@ export function FileCompare({
             className="flex-1"
           >
             <div className="space-y-2">
-              <Label className="text-blue-700">
+              <Label className="text-blue-700 dark:text-blue-400">
                 Original File{" "}
                 {leftFileName && (
-                  <span className="text-sm text-blue-500">
+                  <span className="text-sm text-blue-500 dark:text-blue-300">
                     ({leftFileName})
                   </span>
                 )}
               </Label>
-              <div className="border-2 border-dashed border-blue-200 rounded-lg p-8 text-center hover:border-blue-400 transition-colors bg-gradient-to-b from-blue-50/50 to-transparent">
+              <div className="border-2 border-dashed border-blue-200 rounded-lg p-8 text-center hover:border-blue-400 transition-colors bg-gradient-to-b from-blue-50/50 to-transparent dark:border-blue-700/50 dark:hover:border-blue-600/80 dark:from-blue-900/30 dark:to-transparent">
                 <Upload className="w-8 h-8 mx-auto mb-4 text-blue-400" />
                 <p className="text-sm text-muted-foreground mb-2">
                   Drag and drop a file here, or click to browse
@@ -69,7 +69,7 @@ export function FileCompare({
                     const file = e.target.files?.[0];
                     if (file) onFileUpload(file, "left");
                   }}
-                  className="max-w-xs mx-auto border-blue-200 focus-visible:ring-blue-500"
+                  className="max-w-xs mx-auto border-blue-200 focus-visible:ring-blue-500 dark:border-blue-800 dark:focus-visible:ring-blue-500/50"
                 />
               </div>
             </div>
@@ -80,7 +80,7 @@ export function FileCompare({
               <Button
                 variant="outline"
                 size="icon"
-                className="rounded-full w-12 h-12 bg-white shadow-md hover:bg-blue-50 hover:text-blue-600 transition-all"
+                className="rounded-full w-12 h-12 bg-white shadow-md hover:bg-blue-50 hover:text-blue-600 transition-all dark:bg-slate-800 dark:hover:bg-blue-900/30 dark:border-slate-700"
                 onClick={onSwapFiles}
                 title="Swap files"
               >
@@ -97,15 +97,15 @@ export function FileCompare({
             className="flex-1"
           >
             <div className="space-y-2">
-              <Label className="text-purple-700">
+              <Label className="text-purple-700 dark:text-purple-400">
                 Modified File{" "}
                 {rightFileName && (
-                  <span className="text-sm text-purple-500">
+                  <span className="text-sm text-purple-500 dark:text-purple-300">
                     ({rightFileName})
                   </span>
                 )}
               </Label>
-              <div className="border-2 border-dashed border-purple-200 rounded-lg p-8 text-center hover:border-purple-400 transition-colors bg-gradient-to-b from-purple-50/50 to-transparent">
+              <div className="border-2 border-dashed border-purple-200 rounded-lg p-8 text-center hover:border-purple-400 transition-colors bg-gradient-to-b from-purple-50/50 to-transparent dark:border-purple-700/50 dark:hover:border-purple-600/80 dark:from-purple-900/30 dark:to-transparent">
                 <Upload className="w-8 h-8 mx-auto mb-4 text-purple-400" />
                 <p className="text-sm text-muted-foreground mb-2">
                   Drag and drop a file here, or click to browse
@@ -117,7 +117,7 @@ export function FileCompare({
                     const file = e.target.files?.[0];
                     if (file) onFileUpload(file, "right");
                   }}
-                  className="max-w-xs mx-auto border-purple-200 focus-visible:ring-purple-500"
+                  className="max-w-xs mx-auto border-purple-200 focus-visible:ring-purple-500 dark:border-purple-800 dark:focus-visible:ring-purple-500/50"
                 />
               </div>
             </div>
@@ -132,7 +132,7 @@ export function FileCompare({
           >
             <Button
               onClick={onCompare}
-              className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-md"
+              className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-md dark:from-blue-700 dark:to-purple-700 dark:hover:from-blue-600 dark:hover:to-purple-600"
             >
               <Eye className="w-4 h-4" />
               Compare Files
@@ -140,7 +140,7 @@ export function FileCompare({
             <Button
               variant="outline"
               onClick={onClear}
-              className="flex items-center gap-2 border-blue-200 hover:bg-blue-50 hover:text-blue-600"
+              className="flex items-center gap-2 border-blue-200 hover:bg-blue-50 hover:text-blue-600 dark:border-blue-800 dark:hover:bg-blue-900/30"
             >
               <RotateCcw className="w-4 h-4" />
               Clear All

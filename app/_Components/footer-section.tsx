@@ -13,7 +13,7 @@ export const FooterSection = () => {
               <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                 <FileText className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold">DiffChecker Pro</span>
+              <span className="text-xl font-bold">DiffMate</span>
             </div>
             <p className="text-muted-foreground text-sm">
               Professional text and file comparison tool for developers,
@@ -90,7 +90,7 @@ export const FooterSection = () => {
         </div>
 
         <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 DiffChecker Pro. All rights reserved.</p>
+          <p>&copy; 2024 DiffMate. All rights reserved.</p>
         </div>
       </div>
     </footer>

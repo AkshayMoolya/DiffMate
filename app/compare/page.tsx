@@ -29,6 +29,7 @@ import { ComparisonControls } from "@/components/comparison-controls";
 import { DiffStatsComponent } from "@/components/diff-stats";
 import { DiffViewer } from "@/components/diff-viewer";
 import { motion } from "framer-motion";
+import { ThemeToggle } from "@/components/theme-toggle";
 import {
   Card,
   CardContent,
@@ -471,25 +472,33 @@ export default function ComparePage() {
   }, [leftText, rightText]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50/30 via-white to-purple-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50/30 via-white to-purple-50/30 dark:from-blue-950/30 dark:via-slate-900 dark:to-purple-950/30">
       {/* Navigation */}
-      <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+      <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 dark:border-slate-800">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/20 dark:shadow-blue-500/10">
                 <FileText className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                DiffChecker Pro
+                DiffMate
               </span>
             </div>
-            <Button variant="outline" asChild className="group">
-              <Link href="/" className="flex items-center gap-2 transition-all">
-                <Home className="w-4 h-4 group-hover:text-blue-600" />
-                <span className="group-hover:text-blue-600">Back to Home</span>
-              </Link>
-            </Button>
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <Button variant="outline" asChild className="group">
+                <Link
+                  href="/"
+                  className="flex items-center gap-2 transition-all"
+                >
+                  <Home className="w-4 h-4 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+                  <span className="group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                    Back to Home
+                  </span>
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </nav>
@@ -502,11 +511,11 @@ export default function ComparePage() {
           transition={{ duration: 0.5 }}
           className="text-center space-y-4 max-w-3xl mx-auto"
         >
-          <div className="inline-flex items-center justify-center p-1 px-3 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-2">
+          <div className="inline-flex items-center justify-center p-1 px-3 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-2 dark:bg-blue-900 dark:text-blue-300">
             <Sparkles className="w-4 h-4 mr-1" />
             Professional Diff Tool
           </div>
-          <h1 className="text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+          <h1 className="text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
             Text Diff Checker
           </h1>
           <p className="text-muted-foreground text-lg">
@@ -522,31 +531,31 @@ export default function ComparePage() {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <Tabs defaultValue="text" className="w-full">
-            <TabsList className="grid max-w-2xl mx-auto grid-cols-4 bg-muted/50 p-1 rounded-xl">
+            <TabsList className="grid max-w-2xl mx-auto grid-cols-4 bg-muted/50 p-1 rounded-xl dark:bg-muted/20">
               <TabsTrigger
                 value="text"
-                className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow"
+                className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow dark:data-[state=active]:bg-slate-800"
               >
                 <FileText className="w-4 h-4" />
                 Text
               </TabsTrigger>
               <TabsTrigger
                 value="file"
-                className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow"
+                className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow dark:data-[state=active]:bg-slate-800"
               >
                 <Upload className="w-4 h-4" />
                 File
               </TabsTrigger>
               <TabsTrigger
                 value="folder"
-                className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow"
+                className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow dark:data-[state=active]:bg-slate-800"
               >
                 <FolderOpen className="w-4 h-4" />
                 Folder
               </TabsTrigger>
               <TabsTrigger
                 value="github"
-                className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow"
+                className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow dark:data-[state=active]:bg-slate-800"
               >
                 <Github className="w-4 h-4" />
                 GitHub
@@ -691,13 +700,13 @@ export default function ComparePage() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="space-y-6 mt-10 pt-10 border-t"
+              className="space-y-6 mt-10 pt-10 border-t dark:border-slate-800"
             >
-              <h2 className="text-2xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+              <h2 className="text-2xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
                 Comparison Results
               </h2>
               <DiffStatsComponent stats={diffStats} />
-              <div className="bg-white rounded-lg shadow-xl border overflow-hidden">
+              <div className="bg-white dark:bg-slate-900 rounded-lg shadow-xl border dark:border-slate-800 overflow-hidden">
                 <DiffViewer
                   diffLines={diffLines}
                   leftFileName={leftFileName}

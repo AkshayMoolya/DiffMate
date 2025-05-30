@@ -43,7 +43,7 @@ export function TextCompare({
               <Input
                 value={leftFileName}
                 onChange={(e) => onLeftFileNameChange(e.target.value)}
-                className="font-semibold border-none p-0 h-auto bg-transparent text-blue-700"
+                className="font-semibold border-none p-0 h-auto bg-transparent text-blue-700 dark:text-blue-500 "
                 placeholder="Original"
               />
             </CardTitle>
@@ -86,7 +86,7 @@ export function TextCompare({
               <Input
                 value={rightFileName}
                 onChange={(e) => onRightFileNameChange(e.target.value)}
-                className="font-semibold border-none p-0 h-auto bg-transparent text-purple-700"
+                className="font-semibold border-none p-0 h-auto bg-transparent text-purple-700 dark:text-purple-700 "
                 placeholder="Modified"
               />
             </CardTitle>
