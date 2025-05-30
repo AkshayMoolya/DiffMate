@@ -67,7 +67,7 @@ export function FolderCompare({
                   </p>
                   <Input
                     type="file"
-                    webkitdirectory=""
+                    {...({ webkitdirectory: "" } as any)}
                     multiple
                     onChange={(e) => {
                       const files = e.target.files;
@@ -118,7 +118,7 @@ export function FolderCompare({
                   </p>
                   <Input
                     type="file"
-                    webkitdirectory=""
+                    {...({ webkitdirectory: "" } as any)}
                     multiple
                     onChange={(e) => {
                       const files = e.target.files;
