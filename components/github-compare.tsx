@@ -13,12 +13,20 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
+import { FolderTree } from "./folder-tree";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import type { FolderItem, FolderComparison } from "@/types/diff";
 
 interface GithubCompareProps {
   onCompare: (url: string) => void;
   onClear: () => void;
   isLoading: boolean;
   error?: string | null;
+  fileTree?: FolderItem | null;
+  folderComparison?: FolderComparison | null;
+  selectedFile?: string | null;
+  onFileSelect?: (filePath: string) => void;
+  commitInfo?: any;
 }
 
 export function GithubCompare({
@@ -26,6 +34,11 @@ export function GithubCompare({
   onClear,
   isLoading,
   error,
+  fileTree,
+  folderComparison,
+  selectedFile,
+  onFileSelect,
+  commitInfo,
 }: GithubCompareProps) {
   const [commitUrl, setCommitUrl] = useState("");
 
@@ -98,6 +111,39 @@ export function GithubCompare({
             Clear
           </Button>
         </motion.div>
+
+        {/* File tree visualization for GitHub commit */}
+        {fileTree && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="mt-6"
+          >
+            <Card className="shadow-sm">
+              <CardHeader className="py-3 bg-muted/50">
+                <CardTitle className="text-sm font-medium flex items-center gap-2">
+                  <Github className="w-4 h-4" />
+                  {commitInfo && (
+                    <span className="truncate">{commitInfo.commitMessage}</span>
+                  )}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <ScrollArea className="h-[300px]">
+                  <div className="p-3">
+                    <FolderTree
+                      folder={fileTree}
+                      folderComparison={folderComparison}
+                      selectedFile={selectedFile}
+                      onFileSelect={onFileSelect}
+                    />
+                  </div>
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
       </CardContent>
     </Card>
   );

@@ -70,6 +70,9 @@ export default function ComparePage() {
   const [selectedGithubFile, setSelectedGithubFile] = useState<string | null>(
     null
   );
+  const [githubFileTree, setGithubFileTree] = useState<FolderItem | null>(null);
+  const [githubFolderComparison, setGithubFolderComparison] =
+    useState<FolderComparison | null>(null);
 
   const diffResultsRef = useRef<HTMLDivElement>(null);
 
@@ -246,8 +249,86 @@ export default function ComparePage() {
       const commitData = await getCommitComparison(commitUrl);
       setGithubCommitInfo(commitData);
 
-      // Select first file by default
+      // Create a folder structure from the file paths
+      const rootFolder: FolderItem = {
+        name: "root",
+        path: "",
+        type: "folder",
+        children: [],
+      };
+
+      // Process files to build a tree
       if (commitData.files && commitData.files.length > 0) {
+        // Create folder comparison data
+        const addedFiles: string[] = [];
+        const removedFiles: string[] = [];
+        const modifiedFiles: string[] = [];
+        const unchangedFiles: string[] = [];
+        const leftFiles = new Map<string, string>();
+        const rightFiles = new Map<string, string>();
+
+        // Process files and categorize them
+        commitData.files.forEach((file: any) => {
+          // Add to appropriate category
+          if (file.status === "added") {
+            addedFiles.push(file.filename);
+          } else if (file.status === "removed") {
+            removedFiles.push(file.filename);
+          } else if (file.status === "modified") {
+            modifiedFiles.push(file.filename);
+          } else {
+            unchangedFiles.push(file.filename);
+          }
+
+          // Store file contents
+          leftFiles.set(file.filename, file.leftContent || "");
+          rightFiles.set(file.filename, file.rightContent || "");
+
+          // Build folder tree
+          const pathParts = file.filename.split("/");
+          let currentFolder = rootFolder;
+
+          // Create folder structure
+          for (let i = 0; i < pathParts.length - 1; i++) {
+            const folderName = pathParts[i];
+            let existingFolder = currentFolder.children.find(
+              (child) => child.type === "folder" && child.name === folderName
+            ) as FolderItem;
+
+            if (!existingFolder) {
+              existingFolder = {
+                name: folderName,
+                path: pathParts.slice(0, i + 1).join("/"),
+                type: "folder",
+                children: [],
+              };
+              currentFolder.children.push(existingFolder);
+            }
+            currentFolder = existingFolder;
+          }
+
+          // Add file to current folder
+          currentFolder.children.push({
+            name: pathParts[pathParts.length - 1],
+            path: file.filename,
+            content: file.rightContent || "",
+            type: "file",
+          });
+        });
+
+        // Save folder comparison data
+        setGithubFolderComparison({
+          leftFiles,
+          rightFiles,
+          addedFiles,
+          removedFiles,
+          modifiedFiles,
+          unchangedFiles,
+        });
+
+        setGithubFileTree(rootFolder);
+
+        // Select first file by default
         const firstFile = commitData.files[0];
         setSelectedGithubFile(firstFile.filename);
 
@@ -322,6 +403,8 @@ export default function ComparePage() {
     setRightFolder(null);
     setFolderComparison(null);
     setSelectedFile(null);
+    setGithubFileTree(null);
+    setGithubFolderComparison(null);
   };
 
   const handleSwapContents = () => {
@@ -531,9 +614,15 @@ export default function ComparePage() {
                   onClear={handleClearAll}
                   isLoading={isGithubLoading}
                   error={githubError}
+                  fileTree={githubFileTree}
+                  folderComparison={githubFolderComparison}
+                  selectedFile={selectedGithubFile}
+                  onFileSelect={handleSelectGithubFile}
+                  commitInfo={githubCommitInfo}
                 />
 
-                {githubCommitInfo && (
+                {/* Remove or comment out the existing card-based file listing since we now have a tree view */}
+                {/* {githubCommitInfo && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -589,7 +678,7 @@ export default function ComparePage() {
                       </CardContent>
                     </Card>
                   </motion.div>
-                )}
+                )} */}
               </TabsContent>
             </div>
           </Tabs>
