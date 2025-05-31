@@ -32,30 +32,69 @@ export const TestimonialsSection = () => {
   ];
 
   return (
-    <section
-      id="testimonials"
-      className="py-20 px-6 bg-slate-50/50 dark:bg-slate-900/30"
-    >
-      <div className="container mx-auto">
+    <section id="testimonials" className="py-24 px-6 relative">
+      {/* Removed space-bg class as it's now in the parent container */}
+
+      {/* Enhanced star field */}
+      <div className="twinkling absolute inset-0 opacity-20 z-0"></div>
+      <div className="cosmic-dust absolute inset-0 opacity-30 z-0"></div>
+
+      {/* Comets */}
+      <div
+        className="comet absolute top-[35%] right-[15%]"
+        style={{ animationDelay: "1s" }}
+      ></div>
+      <div
+        className="comet absolute bottom-[40%] left-[20%]"
+        style={{ animationDelay: "6s" }}
+      ></div>
+
+      {/* Enhanced nebula effect */}
+      <motion.div
+        className="nebula w-[50rem] h-[50rem] opacity-25 left-[-10%] top-[20%]"
+        style={{
+          background:
+            "linear-gradient(215deg, var(--nebula3), var(--nebula1), var(--nebula2))",
+        }}
+        animate={{
+          opacity: [0.15, 0.25, 0.15],
+          scale: [1, 1.15, 1],
+          borderRadius: [
+            "70% 30% 50% 50% / 30% 70% 50% 50%",
+            "50% 50% 70% 30% / 50% 50% 30% 70%",
+            "70% 30% 50% 50% / 30% 70% 50% 50%",
+          ],
+        }}
+        transition={{ duration: 18, repeat: Infinity, repeatType: "reverse" }}
+      />
+
+      <div className="container mx-auto relative z-10">
         <div className="text-center mb-16">
           <motion.h2
-            className="text-4xl font-bold mb-4 gradient-text"
+            className="text-4xl font-bold mb-4 sci-fi-text"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, repeat: Infinity }}
+            animate={{
+              textShadow: [
+                "0 0 8px rgba(98, 54, 255, 0.2)",
+                "0 0 15px rgba(98, 54, 255, 0.6)",
+                "0 0 8px rgba(98, 54, 255, 0.2)",
+              ],
+            }}
+            // transition={{ duration: 3, repeat: Infinity }}
           >
             Loved by Professionals
           </motion.h2>
           <motion.p
-            className="text-xl text-muted-foreground max-w-2xl mx-auto"
+            className="text-xl text-blue-200 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            See what developers, writers, and teams are saying about DiffChecker
-            Pro
+            See what developers, writers, and teams are saying about DiffMate
           </motion.p>
         </div>
 
@@ -66,24 +105,39 @@ export const TestimonialsSection = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 * index }}
+              transition={{ duration: 0.6, delay: 0.15 * index }}
+              whileHover={{
+                y: -12,
+                scale: 1.03,
+                transition: { duration: 0.3 },
+              }}
             >
-              <Card className="hover:shadow-lg transition-shadow h-full dark:border-slate-700 hover:border-blue-200 dark:hover:border-blue-900">
+              <Card className="backdrop-blur-md bg-black/40 border-none sci-fi-glow h-full">
                 <CardContent className="p-6 h-full flex flex-col">
-                  <div className="flex mb-4">
+                  <motion.div
+                    className="flex mb-4"
+                    animate={{ scale: [1, 1.03, 1] }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: index * 0.5,
+                    }}
+                  >
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <Star
                         key={i}
-                        className="w-4 h-4 fill-yellow-400 text-yellow-400"
+                        className="w-5 h-5 fill-yellow-400 text-yellow-400 mr-1"
                       />
                     ))}
-                  </div>
-                  <p className="text-muted-foreground mb-4 italic flex-grow">
+                  </motion.div>
+                  <p className="text-blue-300 mb-5 italic flex-grow text-lg leading-relaxed">
                     "{testimonial.content}"
                   </p>
-                  <div className="border-t pt-4 dark:border-slate-700/50">
-                    <p className="font-semibold">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">
+                  <div className="border-t pt-4 border-indigo-900/50">
+                    <p className="font-semibold text-blue-100 text-lg">
+                      {testimonial.name}
+                    </p>
+                    <p className="text-indigo-400">
                       {testimonial.role} at {testimonial.company}
                     </p>
                   </div>
@@ -93,6 +147,9 @@ export const TestimonialsSection = () => {
           ))}
         </div>
       </div>
+
+      {/* Section transition element */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-transparent to-transparent pointer-events-none"></div>
     </section>
   );
 };
