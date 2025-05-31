@@ -1,46 +1,46 @@
-# DiffMate - Advanced Text Comparison Tool
+# 🔄 DiffMate - Advanced Text Comparison Tool
 
 DiffMate is a powerful text comparison tool built with Next.js that allows users to easily identify differences between text snippets, documents, or code segments. With its sleek sci-fi-inspired interface and advanced comparison algorithms, DiffMate provides a professional-grade solution for developers, writers, and teams.
 
-## Purpose
+## 🎯 Purpose
 
 DiffMate was created to solve common challenges in text and file comparison:
 
-- **Code Review Efficiency**: Quickly identify and visualize code changes between versions
-- **Document Collaboration**: Track changes in collaborative writing and editing processes
-- **Error Identification**: Easily spot differences in expected vs. actual outputs
-- **Version Management**: Compare different file versions to track evolution and changes
+- **🧩 Code Review Efficiency**: Quickly identify and visualize code changes between versions
+- **👥 Document Collaboration**: Track changes in collaborative writing and editing processes
+- **🔍 Error Identification**: Easily spot differences in expected vs. actual outputs
+- **📚 Version Management**: Compare different file versions to track evolution and changes
 
-## Key Features
+## ✨ Key Features
 
-- **Multiple Comparison Modes**:
+- **🔄 Multiple Comparison Modes**:
 
   - Text-to-text comparison with character-level diff highlighting
   - Single file comparison with side-by-side or unified views
   - Folder comparison for directory structure analysis
   - GitHub integration for commit and PR comparisons
 
-- **Advanced Visualization**:
+- **📊 Advanced Visualization**:
 
   - Line-by-line highlighting of additions, deletions, and modifications
   - Character-level inline changes within modified lines
   - Comprehensive diff statistics and summary
   - Code syntax highlighting for 20+ programming languages
 
-- **User Experience**:
+- **🚀 User Experience**:
 
   - Sci-Fi-inspired UI with modern, sleek design
   - Light/Dark mode toggling for comfortable viewing
   - Responsive design for mobile and desktop use
   - Copy and download diff results for sharing
 
-- **Technical Features**:
+- **⚙️ Technical Features**:
   - Efficient diff algorithm for large files
   - Option to ignore whitespace changes
   - Line number display toggles
   - Multiple view modes (side-by-side or unified)
 
-## Technologies Used
+## 🛠 Technologies Used
 
 - [Next.js](https://nextjs.org) - React framework
 - [TailwindCSS](https://tailwindcss.com) - Styling
@@ -48,7 +48,7 @@ DiffMate was created to solve common challenges in text and file comparison:
 - [Lucide Icons](https://lucide.dev/) - Icon library
 - [shadcn/ui](https://ui.shadcn.com/) - UI components
 
-## Use Cases
+## 📚 Use Cases
 
 ### For Developers
 
@@ -71,7 +71,7 @@ DiffMate was created to solve common challenges in text and file comparison:
 - Document historical changes for compliance
 - Streamline communication about specific changes
 
-## Getting Started
+## 🚀 Getting Started
 
 First, install dependencies:
 
@@ -99,7 +99,7 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
-## Project Structure
+## 📁 Project Structure
 
 - `app/page.tsx`: Main landing page
 - `app/compare`: Text comparison page
@@ -108,7 +108,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - `utils/diff-calculator.ts`: Core diff algorithm implementation
 - `types/diff.ts`: TypeScript type definitions for diff operations
 
-## How It Works
+## ⚙️ How It Works
 
 DiffMate uses a specialized diff algorithm to:
 
@@ -119,7 +119,7 @@ DiffMate uses a specialized diff algorithm to:
 5. Generate statistical data about changes
 6. Render visual representations of the differences
 
-## Learn More
+## 📖 Learn More
 
 To learn more about the technologies used in this project:
 
@@ -127,10 +127,10 @@ To learn more about the technologies used in this project:
 - [TailwindCSS Documentation](https://tailwindcss.com/docs)
 - [Framer Motion Documentation](https://www.framer.com/motion/introduction/)
 
-## Deployment
+## 🚀 Deployment
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new) from the creators of Next.js.
 
-## Made By
+## 👤 Made By
 
 DiffMate is created and maintained by [Akshay Moolya](https://akshay33.vercel.app/).
