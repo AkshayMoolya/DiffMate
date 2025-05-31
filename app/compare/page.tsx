@@ -475,7 +475,7 @@ export default function ComparePage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50/30 via-white to-purple-50/30 dark:from-blue-950/30 dark:via-slate-900 dark:to-purple-950/30">
       {/* Navigation */}
       <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 dark:border-slate-800">
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/20 dark:shadow-blue-500/10">
@@ -486,14 +486,14 @@ export default function ComparePage() {
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <ThemeToggle />
+              <ThemeToggle className="bg-background text-foreground border border-input" />
               <Button variant="outline" asChild className="group">
                 <Link
                   href="/"
                   className="flex items-center gap-2 transition-all"
                 >
                   <Home className="w-4 h-4 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
-                  <span className="group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                  <span className="group-hover:text-blue-600 dark:group-hover:text-blue-400 hidden sm:inline">
                     Back to Home
                   </span>
                 </Link>

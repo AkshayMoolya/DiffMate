@@ -73,7 +73,7 @@ export function GithubCompare({
                 value={commitUrl}
                 onChange={(e) => setCommitUrl(e.target.value)}
                 placeholder="https://github.com/username/repo/commit/hash"
-                className="pl-10 pr-20 py-6 text-base focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 dark:border-slate-700"
+                className="pl-10 pr-24 py-6 text-base focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 dark:border-slate-700"
               />
               <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                 <Button
@@ -90,7 +90,7 @@ export function GithubCompare({
                 </Button>
               </div>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground truncate max-w-full">
               Example: https://github.com/facebook/react/commit/abcdef123456
             </p>
           </div>

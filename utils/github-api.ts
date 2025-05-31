@@ -120,7 +120,9 @@ export const getCommitComparison = async (commitUrl: string) => {
 
   // Get parent commit
   if (!commitDetails.parents || commitDetails.parents.length === 0) {
-    throw new Error("Commit has no parent to compare with");
+    throw new Error(
+      "This commit has no parent commit. It might be the initial commit in the repository."
+    );
   }
 
   const parentSha = commitDetails.parents[0].sha;

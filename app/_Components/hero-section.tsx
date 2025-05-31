@@ -49,19 +49,19 @@ export const Herosection = () => {
         >
           <Badge
             variant="secondary"
-            className="mb-6 py-1.5 px-3 shadow-sm backdrop-blur-sm bg-white/10 border-none pulse"
+            className="mb-6 py-1.5 px-3 shadow-sm backdrop-blur-sm bg-white/10 border border-purple-300/20 text-purple-100 dark:text-purple-200"
           >
-            <Zap className="w-4 h-4 mr-2 text-purple-300" />
+            <Zap className="w-4 h-4 mr-2 text-purple-500 dark:text-purple-300" />
             Professional Diff Tool
           </Badge>
           <div className="absolute top-6 right-6 md:right-10">
-            <ThemeToggle />
+            <ThemeToggle className="bg-white/20 backdrop-blur-sm border border-white/10 text-slate-900 dark:text-blue-100" />
           </div>
         </motion.div>
 
         {/* Enhanced title with better animation */}
         <motion.h1
-          className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-white"
+          className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 sm:mb-6 text-white"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -84,7 +84,7 @@ export const Herosection = () => {
         </motion.h1>
 
         <motion.p
-          className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto leading-relaxed"
+          className="text-base sm:text-lg md:text-xl text-blue-100 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-2 sm:px-0"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -145,53 +145,65 @@ export const Herosection = () => {
                     DiffMate
                   </span>
                 </div>
-                <div className="grid grid-cols-2 min-h-[300px] bg-slate-900/80">
+                <div className="grid grid-cols-1 sm:grid-cols-2 min-h-[300px] bg-slate-900/80">
                   {/* Rest of the card content remains unchanged */}
-                  <div className="border-r border-indigo-900/50">
+                  <div className="border-b sm:border-b-0 sm:border-r border-indigo-900/50">
                     <div className="bg-slate-800/80 px-4 py-2 text-sm font-medium border-b border-indigo-900/50 text-blue-200">
                       Original.js
                     </div>
-                    <div className="p-4 font-mono text-sm space-y-1">
-                      <div className="text-blue-300">
+                    <div className="p-4 font-mono text-sm space-y-1 overflow-x-auto">
+                      <div className="text-blue-300 whitespace-pre">
                         1 function calculateTotal(items) {"{"}
                       </div>
-                      <div className="bg-red-950/30 text-red-300 px-2 -mx-2 rounded">
+                      <div className="bg-red-950/30 text-red-300 px-2 -mx-2 rounded whitespace-pre">
                         2 let total = 0;
                       </div>
-                      <div className="text-blue-300">
+                      <div className="text-blue-300 whitespace-pre">
                         3 for (let item of items) {"{"}
                       </div>
-                      <div className="bg-yellow-950/30 text-yellow-300 px-2 -mx-2 rounded">
+                      <div className="bg-yellow-950/30 text-yellow-300 px-2 -mx-2 rounded whitespace-pre">
                         4 total += item.price;
                       </div>
-                      <div className="text-blue-300">5 {"}"}</div>
-                      <div className="text-blue-300">6 return total;</div>
-                      <div className="text-blue-300">7 {"}"}</div>
+                      <div className="text-blue-300 whitespace-pre">
+                        5 {"}"}
+                      </div>
+                      <div className="text-blue-300 whitespace-pre">
+                        6 return total;
+                      </div>
+                      <div className="text-blue-300 whitespace-pre">
+                        7 {"}"}
+                      </div>
                     </div>
                   </div>
                   <div>
                     <div className="bg-slate-800/80 px-4 py-2 text-sm font-medium border-b border-indigo-900/50 text-blue-200">
                       Modified.js
                     </div>
-                    <div className="p-4 font-mono text-sm space-y-1">
-                      <div className="text-blue-300">
+                    <div className="p-4 font-mono text-sm space-y-1 overflow-x-auto">
+                      <div className="text-blue-300 whitespace-pre">
                         1 function calculateTotal(items) {"{"}
                       </div>
-                      <div className="bg-green-950/30 text-green-300 px-2 -mx-2 rounded">
+                      <div className="bg-green-950/30 text-green-300 px-2 -mx-2 rounded whitespace-pre">
                         2 let total = 0;
                       </div>
-                      <div className="bg-green-950/30 text-green-300 px-2 -mx-2 rounded">
+                      <div className="bg-green-950/30 text-green-300 px-2 -mx-2 rounded whitespace-pre">
                         3 const tax = 0.08;
                       </div>
-                      <div className="text-blue-300">
+                      <div className="text-blue-300 whitespace-pre">
                         4 for (let item of items) {"{"}
                       </div>
-                      <div className="bg-yellow-950/30 text-yellow-300 px-2 -mx-2 rounded">
+                      <div className="bg-yellow-950/30 text-yellow-300 px-2 -mx-2 rounded whitespace-pre">
                         5 total += item.price * (1 + tax);
                       </div>
-                      <div className="text-blue-300">6 {"}"}</div>
-                      <div className="text-blue-300">7 return total;</div>
-                      <div className="text-blue-300">8 {"}"}</div>
+                      <div className="text-blue-300 whitespace-pre">
+                        6 {"}"}
+                      </div>
+                      <div className="text-blue-300 whitespace-pre">
+                        7 return total;
+                      </div>
+                      <div className="text-blue-300 whitespace-pre">
+                        8 {"}"}
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -71,13 +71,13 @@ export const UseCasesSection = () => {
       />
 
       <div className="container mx-auto relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <motion.h2
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 3, repeat: Infinity }}
-            className="text-4xl font-bold mb-4 sci-fi-text"
+            className="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4 sci-fi-text"
             animate={{
               textShadow: [
                 "0 0 8px rgba(98, 54, 255, 0.2)",
@@ -85,7 +85,6 @@ export const UseCasesSection = () => {
                 "0 0 8px rgba(98, 54, 255, 0.2)",
               ],
             }}
-            // transition={{ duration: 3, repeat: Infinity }}
           >
             Perfect for Every Use Case
           </motion.h2>
@@ -94,7 +93,7 @@ export const UseCasesSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-blue-200 max-w-2xl mx-auto"
+            className="text-lg sm:text-xl text-blue-200 max-w-2xl mx-auto px-2 sm:px-0"
           >
             From code reviews to document editing, DiffMate adapts to your
             workflow

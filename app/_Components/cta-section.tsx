@@ -55,7 +55,7 @@ export const CtaSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-5xl font-bold mb-6 text-white"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-white px-2 sm:px-0"
         >
           Ready to{" "}
           <motion.span
@@ -78,7 +78,7 @@ export const CtaSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-2xl mb-10 text-blue-200 max-w-2xl mx-auto leading-relaxed"
+          className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-10 text-blue-200 max-w-2xl mx-auto leading-relaxed px-3 sm:px-0"
         >
           Compare text, files, folders, and even GitHub commits. Join thousands
           of professionals who trust DiffMate for their comparison needs.

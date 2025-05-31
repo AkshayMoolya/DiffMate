@@ -91,14 +91,14 @@ export const FeaturesSection = () => {
 
       <div className="container mx-auto relative z-10">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
           <motion.h2
-            className="text-4xl font-bold mb-4 sci-fi-text"
+            className="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4 sci-fi-text"
             animate={{
               textShadow: [
                 "0 0 8px rgba(98, 54, 255, 0.2)",
@@ -110,7 +110,7 @@ export const FeaturesSection = () => {
           >
             Powerful Features
           </motion.h2>
-          <p className="text-xl text-blue-200 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-blue-200 max-w-2xl mx-auto px-2 sm:px-0">
             Everything you need for professional text and file comparison
           </p>
         </motion.div>
