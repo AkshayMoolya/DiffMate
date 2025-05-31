@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { FileText, Github, Twitter, Mail } from "lucide-react";
+import { FileText, Github, Twitter, Mail, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -134,7 +134,36 @@ export const FooterSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <p>&copy; 2024 DiffMate. All rights reserved.</p>
+          <p>&copy;{new Date().getFullYear()} DiffMate. All rights reserved.</p>
+
+          <div className="mt-4 flex justify-center items-center flex-wrap gap-2">
+            <span>Made with ❤️ by Akshay</span>
+            <div className="flex space-x-3 items-center">
+              <motion.a
+                href="https://github.com/AkshayMoolya"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-300 hover:text-blue-100 inline-flex items-center"
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <Github className="w-4 h-4 mr-1" />
+                <span>GitHub</span>
+              </motion.a>
+
+              <motion.a
+                href="https://akshay33.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-300 hover:text-blue-100 inline-flex items-center"
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <ExternalLink className="w-4 h-4 mr-1" />
+                <span>Portfolio</span>
+              </motion.a>
+            </div>
+          </div>
         </motion.div>
       </div>
     </footer>

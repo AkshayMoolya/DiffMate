@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 export const Herosection = () => {
   return (
-    <section className="py-20 px-6 relative min-h-[90vh] flex items-center overflow-visible">
+    <section className="py-24 px-6 relative min-h-[90vh] flex items-center overflow-visible">
       {/* Star field backgrounds are now moved to the main page background */}
 
       {/* Comet animation */}
