@@ -128,9 +128,11 @@ export function GithubCompare({
             <Card className="shadow-sm border dark:border-slate-800">
               <CardHeader className="py-3 bg-muted/50 dark:bg-muted/20">
                 <CardTitle className="text-sm font-medium flex items-center gap-2">
-                  <Github className="w-4 h-4" />
+                  <Github className="w-4 h-4 flex-shrink-0" />
                   {commitInfo && (
-                    <span className="truncate">{commitInfo.commitMessage}</span>
+                    <span className="wrap-break-word block">
+                      {commitInfo.commitMessage}
+                    </span>
                   )}
                 </CardTitle>
               </CardHeader>

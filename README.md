@@ -17,7 +17,7 @@ DiffMate was created to solve common challenges in text and file comparison:
 
   - Text-to-text comparison with character-level diff highlighting
   - Single file comparison with side-by-side or unified views
-  - Folder comparison for directory structure analysis
+  - GitHub integration for commit and PR comparisons
   - GitHub integration for commit and PR comparisons
 
 - **📊 Advanced Visualization**:

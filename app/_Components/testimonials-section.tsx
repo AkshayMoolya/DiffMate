@@ -26,7 +26,7 @@ export const TestimonialsSection = () => {
       role: "Project Manager",
       company: "StartupXYZ",
       content:
-        "The folder comparison feature saved us hours of manual work. Incredibly powerful yet simple, and works great in both light and dark modes.",
+        "The GitHub comparison feature saved us hours of manual work. Incredibly powerful yet simple, and works great in both light and dark modes.",
       rating: 5,
     },
   ];

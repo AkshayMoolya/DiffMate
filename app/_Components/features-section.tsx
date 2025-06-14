@@ -5,7 +5,7 @@ import {
   FileText,
   Upload,
   Eye,
-  FolderOpen,
+  Github,
   Palette,
   Shield,
   Zap,
@@ -41,11 +41,11 @@ export const FeaturesSection = () => {
         "Side-by-side and unified views with syntax highlighting and customizable themes for optimal readability.",
     },
     {
-      icon: <FolderOpen className="w-6 h-6" />,
-      title: "Folder Comparison",
-      description: "Compare entire directory structures",
+      icon: <Github className="w-6 h-6" />,
+      title: "GitHub Compare",
+      description: "Compare GitHub commits and pull requests",
       details:
-        "Recursive folder analysis, missing file detection, and bulk file comparison.",
+        "Seamless integration with GitHub repositories, commit history analysis, and PR change visualization.",
     },
     {
       icon: <Moon className="w-6 h-6" />,
