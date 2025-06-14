@@ -53,7 +53,12 @@ export function GithubCompare({
       <CardHeader className="bg-gradient-to-r from-blue-50/80 via-purple-50/50 to-transparent dark:from-blue-950/30 dark:via-purple-950/20 dark:to-transparent">
         <CardTitle>GitHub Commit Comparison</CardTitle>
         <CardDescription>
-          Paste a GitHub commit URL to view changes compared to its parent
+          Paste a GitHub commit URL to view changes and compare files in the
+          <span className="font-semibold"> file tree</span>. You can also
+          <span className="font-semibold"> select files</span> to see detailed
+          changes. This tool supports both{" "}
+          <span className="font-semibold">text</span> and{" "}
+          <span className="font-semibold">file comparisons</span> for any GitHub
           commit
         </CardDescription>
       </CardHeader>

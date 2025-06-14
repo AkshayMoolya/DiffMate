@@ -3,14 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  FileText,
-  Upload,
-  FolderOpen,
-  Home,
-  Sparkles,
-  Github,
-} from "lucide-react";
+import { FileText, Upload, Home, Sparkles, Github } from "lucide-react";
 import Link from "next/link";
 
 import type {
@@ -23,7 +16,6 @@ import { calculateTextDiff } from "@/utils/diff-calculator";
 import { getCommitComparison } from "@/utils/github-api";
 import { TextCompare } from "@/components/text-compare";
 import { FileCompare } from "@/components/file-compare";
-import { FolderCompare } from "@/components/folder-compare";
 import { GithubCompare } from "@/components/github-compare";
 import { ComparisonControls } from "@/components/comparison-controls";
 import { DiffStatsComponent } from "@/components/diff-stats";
@@ -56,13 +48,6 @@ export default function ComparePage() {
   );
   const [showLineNumbers, setShowLineNumbers] = useState(true);
   const [ignoreWhitespace, setIgnoreWhitespace] = useState(false);
-
-  // Folder comparison state
-  const [leftFolder, setLeftFolder] = useState<FolderItem | null>(null);
-  const [rightFolder, setRightFolder] = useState<FolderItem | null>(null);
-  const [folderComparison, setFolderComparison] =
-    useState<FolderComparison | null>(null);
-  const [selectedFile, setSelectedFile] = useState<string | null>(null);
 
   // GitHub comparison state
   const [isGithubLoading, setIsGithubLoading] = useState(false);
@@ -110,136 +95,6 @@ export default function ComparePage() {
       }
     };
     reader.readAsText(file);
-  };
-
-  const handleFolderUpload = async (
-    files: FileList,
-    side: "left" | "right"
-  ) => {
-    const folderStructure: FolderItem = {
-      name: "root",
-      path: "",
-      type: "folder",
-      children: [],
-    };
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const content = await new Promise<string>((resolve) => {
-        const reader = new FileReader();
-        reader.onload = (e) => resolve(e.target?.result as string);
-        reader.readAsText(file);
-      });
-
-      // Build folder structure
-      const pathParts = file.webkitRelativePath.split("/");
-      let currentFolder = folderStructure;
-
-      for (let j = 0; j < pathParts.length - 1; j++) {
-        const folderName = pathParts[j];
-        let existingFolder = currentFolder.children.find(
-          (child) => child.type === "folder" && child.name === folderName
-        ) as FolderItem;
-
-        if (!existingFolder) {
-          existingFolder = {
-            name: folderName,
-            path: pathParts.slice(0, j + 1).join("/"),
-            type: "folder",
-            children: [],
-          };
-          currentFolder.children.push(existingFolder);
-        }
-        currentFolder = existingFolder;
-      }
-
-      // Add file
-      currentFolder.children.push({
-        name: pathParts[pathParts.length - 1],
-        path: file.webkitRelativePath,
-        content,
-        type: "file",
-      });
-    }
-
-    if (side === "left") {
-      setLeftFolder(folderStructure);
-    } else {
-      setRightFolder(folderStructure);
-    }
-  };
-
-  const handleFolderCompare = () => {
-    if (!leftFolder || !rightFolder) return;
-
-    const leftFiles = new Map<string, string>();
-    const rightFiles = new Map<string, string>();
-
-    const extractFiles = (folder: FolderItem, fileMap: Map<string, string>) => {
-      folder.children.forEach((child) => {
-        if (child.type === "file") {
-          fileMap.set(child.path, child.content);
-        } else {
-          extractFiles(child, fileMap);
-        }
-      });
-    };
-
-    extractFiles(leftFolder, leftFiles);
-    extractFiles(rightFolder, rightFiles);
-
-    const allPaths = new Set([...leftFiles.keys(), ...rightFiles.keys()]);
-    const addedFiles: string[] = [];
-    const removedFiles: string[] = [];
-    const modifiedFiles: string[] = [];
-    const unchangedFiles: string[] = [];
-
-    allPaths.forEach((path) => {
-      const leftContent = leftFiles.get(path);
-      const rightContent = rightFiles.get(path);
-
-      if (!leftContent && rightContent) {
-        addedFiles.push(path);
-      } else if (leftContent && !rightContent) {
-        removedFiles.push(path);
-      } else if (leftContent !== rightContent) {
-        modifiedFiles.push(path);
-      } else {
-        unchangedFiles.push(path);
-      }
-    });
-
-    setFolderComparison({
-      leftFiles,
-      rightFiles,
-      addedFiles,
-      removedFiles,
-      modifiedFiles,
-      unchangedFiles,
-    });
-
-    scrollToResults();
-  };
-
-  const handleFileSelect = (filePath: string) => {
-    if (!folderComparison) return;
-
-    const leftContent = folderComparison.leftFiles.get(filePath) || "";
-    const rightContent = folderComparison.rightFiles.get(filePath) || "";
-
-    setLeftText(leftContent);
-    setRightText(rightContent);
-    setLeftFileName(filePath);
-    setRightFileName(filePath);
-    setSelectedFile(filePath);
-
-    const { diffLines: newDiffLines, stats } = calculateTextDiff(
-      leftContent,
-      rightContent,
-      ignoreWhitespace
-    );
-    setDiffLines(newDiffLines);
-    setDiffStats(stats);
   };
 
   const handleGithubCompare = async (commitUrl: string) => {
@@ -400,10 +255,6 @@ export default function ComparePage() {
       modifications: 0,
       unchanged: 0,
     });
-    setLeftFolder(null);
-    setRightFolder(null);
-    setFolderComparison(null);
-    setSelectedFile(null);
     setGithubFileTree(null);
     setGithubFolderComparison(null);
   };
@@ -421,16 +272,6 @@ export default function ComparePage() {
     if (diffLines.length > 0) {
       handleCompare();
     }
-  };
-
-  const handleSwapFolders = () => {
-    const tempFolder = leftFolder;
-    setLeftFolder(rightFolder);
-    setRightFolder(tempFolder);
-
-    // Reset the comparison
-    setFolderComparison(null);
-    setSelectedFile(null);
   };
 
   const handleCopyDiff = () => {
@@ -519,7 +360,7 @@ export default function ComparePage() {
             Text Diff Checker
           </h1>
           <p className="text-muted-foreground text-lg">
-            Compare text, files, and folders with professional-grade diff
+            Compare text, files, and GitHub commits with professional-grade diff
             visualization
           </p>
         </motion.div>
@@ -531,7 +372,7 @@ export default function ComparePage() {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <Tabs defaultValue="text" className="w-full">
-            <TabsList className="grid max-w-2xl mx-auto grid-cols-4 bg-muted/50 p-1 rounded-xl dark:bg-muted/20">
+            <TabsList className="grid max-w-2xl mx-auto grid-cols-3 bg-muted/50 p-1 rounded-xl dark:bg-muted/20">
               <TabsTrigger
                 value="text"
                 className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow dark:data-[state=active]:bg-slate-800"
@@ -545,13 +386,6 @@ export default function ComparePage() {
               >
                 <Upload className="w-4 h-4" />
                 File
-              </TabsTrigger>
-              <TabsTrigger
-                value="folder"
-                className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow dark:data-[state=active]:bg-slate-800"
-              >
-                <FolderOpen className="w-4 h-4" />
-                Folder
               </TabsTrigger>
               <TabsTrigger
                 value="github"
@@ -603,20 +437,6 @@ export default function ComparePage() {
                 />
               </TabsContent>
 
-              <TabsContent value="folder" className="space-y-6">
-                <FolderCompare
-                  leftFolder={leftFolder}
-                  rightFolder={rightFolder}
-                  folderComparison={folderComparison}
-                  selectedFile={selectedFile}
-                  onFolderUpload={handleFolderUpload}
-                  onCompare={handleFolderCompare}
-                  onClear={handleClearAll}
-                  onFileSelect={handleFileSelect}
-                  onSwapFolders={handleSwapFolders}
-                />
-              </TabsContent>
-
               <TabsContent value="github" className="space-y-6">
                 <GithubCompare
                   onCompare={handleGithubCompare}
@@ -629,65 +449,6 @@ export default function ComparePage() {
                   onFileSelect={handleSelectGithubFile}
                   commitInfo={githubCommitInfo}
                 />
-
-                {/* Remove or comment out the existing card-based file listing since we now have a tree view */}
-                {/* {githubCommitInfo && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="mt-6"
-                  >
-                    <Card className="shadow-lg">
-                      <CardHeader className="bg-gradient-to-r from-blue-50 to-transparent">
-                        <CardTitle className="flex items-center gap-2">
-                          <Github className="w-5 h-5" />
-                          Commit: {githubCommitInfo.commitMessage}
-                        </CardTitle>
-                        <CardDescription>
-                          By {githubCommitInfo.authorName} on{" "}
-                          {new Date(
-                            githubCommitInfo.authorDate
-                          ).toLocaleString()}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          <h3 className="text-lg font-semibold">
-                            Changed Files
-                          </h3>
-                          <div className="grid gap-2">
-                            {githubCommitInfo.files.map((file: any) => (
-                              <Button
-                                key={file.filename}
-                                variant={
-                                  selectedGithubFile === file.filename
-                                    ? "default"
-                                    : "outline"
-                                }
-                                className="justify-start text-left h-auto py-2"
-                                onClick={() =>
-                                  handleSelectGithubFile(file.filename)
-                                }
-                              >
-                                <span
-                                  className={`w-2 h-2 mr-2 rounded-full ${
-                                    file.status === "added"
-                                      ? "bg-green-500"
-                                      : file.status === "removed"
-                                      ? "bg-red-500"
-                                      : "bg-blue-500"
-                                  }`}
-                                ></span>
-                                {file.filename}
-                              </Button>
-                            ))}
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                )} */}
               </TabsContent>
             </div>
           </Tabs>
