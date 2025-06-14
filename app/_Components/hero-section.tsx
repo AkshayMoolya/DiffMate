@@ -55,7 +55,7 @@ export const Herosection = () => {
             Professional Diff Tool
           </Badge>
           <div className="absolute top-6 right-6 md:right-10">
-            <ThemeToggle className="bg-white/20 backdrop-blur-sm border border-white/10 text-slate-900 dark:text-blue-100" />
+            <ThemeToggle />
           </div>
         </motion.div>
 
@@ -112,7 +112,7 @@ export const Herosection = () => {
           <Button
             size="lg"
             variant="outline"
-            className="text-lg px-8 border-indigo-400 text-indigo-300 hover:bg-indigo-900/30"
+            className="text-lg px-8 border-indigo-400 text-indigo-700 hover:bg-indigo-900/30 hover:text-white dark:text-indigo-300 dark:hover:bg-indigo-900/30"
           >
             <Github className="w-5 h-5 mr-2" />
             View on GitHub

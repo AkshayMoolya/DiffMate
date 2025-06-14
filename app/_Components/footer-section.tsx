@@ -117,9 +117,9 @@ export const FooterSection = () => {
                   <Button
                     size="sm"
                     variant="outline"
-                    className="border-indigo-700 hover:border-indigo-500 hover:bg-indigo-900/50 sci-fi-glow"
+                    className="border-indigo-400 hover:border-indigo-500 hover:bg-indigo-100 hover:text-indigo-700 sci-fi-glow dark:border-indigo-700 dark:hover:border-indigo-500 dark:hover:bg-indigo-900/50"
                   >
-                    <Icon className="w-4 h-4 text-indigo-300" />
+                    <Icon className="w-4 h-4 text-indigo-700 dark:text-indigo-300" />
                   </Button>
                 </motion.div>
               ))}
